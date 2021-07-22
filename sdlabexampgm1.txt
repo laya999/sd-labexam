@@ -1,0 +1,44 @@
+echo "Enter the size of array1:"
+read s1
+i=0
+echo "Enter the elements:"//Reading array 1
+while [ $i -lt $s1 ]
+do
+   read a[$i]
+   i=$((i+1))
+done
+echo "Enter the size of array2:"//Reading array2
+read s2
+i=0
+echo "Enter the elements"
+while [ $i -lt $s2 ]
+do
+   read b[$i]
+   i=$((i+1))
+done
+ c=("${a[@]}" "${b[@]}")//Merging
+ s3=$(($s1 + $s2))
+ echo -e "Array after merging : "
+ echo ${c[@]:0:$s3}
+for(( i=0;i<$s3;i++ ))//sorting
+ do
+     for(( j=0;j<$(($s3 - $i));j++ ))
+       do
+           if [ ${c[$j]} -gt ${c[$((j + 1))]} ]
+           then
+                t=${c[$j]}
+                c[$j]=${c[$(($j+1))]}
+                c[$(($j+1))]=$t
+           fi
+       done
+ done
+ echo -e "Array after sorting : "
+ echo ${c[@]:0:$s3}
+ 
+ #find the median
+ m=$(( $s3 / 2 ))
+ x=${c[$m]}
+ y=${c[$m-1]}
+ s=$(($x + $y))
+ med=$(($s / 2))
+ echo "Median = $med"
